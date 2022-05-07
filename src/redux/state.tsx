@@ -1,5 +1,12 @@
 import {v1} from "uuid";
-import {renderTree} from "../render";
+
+let onChange = () => {
+    console.log("state changed")
+}
+
+export const subscribe = (callback: ()=>void) => {
+    onChange = callback;
+}
 
 export type PostsType = {
     id: string
@@ -17,11 +24,13 @@ export type MessageType = {
     id: string
     text: string
 }
+
 /*export type FriendsType = {
     id: string
     name: string
     ava: string
 }*/
+
 export type ProfilePageType = {
     newPostText: string
     posts: Array<PostsType>
@@ -75,22 +84,22 @@ export const addPost = () => {
     const newPost = {id: v1(), message: state.profilePage.newPostText, likesCount: 0};
     state.profilePage.posts.push(newPost);
     state.profilePage.newPostText = '';
-    renderTree(state);
+    onChange();
 }
 
 export const changeNewPostText =(newText: string)=>{
     state.profilePage.newPostText=newText;
-    renderTree(state);
+    onChange();
 }
 
 export const addMessage = () => {
     const newMessage = {id: v1(), text: state.dialogsPage.newMessage};
     state.dialogsPage.messages.push(newMessage);
     state.dialogsPage.newMessage = '';
-    renderTree(state);
+    onChange();
 }
 
 export const changeNewMessageText =(newMessageText: string)=>{
     state.dialogsPage.newMessage=newMessageText;
-    renderTree(state);
+    onChange();
 }

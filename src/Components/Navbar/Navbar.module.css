@@ -1,12 +1,17 @@
-.nav{
+.nav {
     group-reset: n;
     background-color: Gray;
     padding: 20px;
 }
-    .item a {
-        color: white;
-        text-decoration: none;
-    }
-    .item a.active {
-        color: gold;
-    }
+
+.item a {
+    color: white;
+    text-decoration: none;
+}
+
+.item a:hover {
+    color: gold;
+}
+.item a.active {
+    color: gold;
+}

@@ -1,13 +1,5 @@
 import {v1} from "uuid";
 
-let onChange = () => {
-    console.log("state changed")
-}
-
-export const subscribe = (callback: ()=>void) => {
-    onChange = callback;
-}
-
 export type PostsType = {
     id: string
     message: string
@@ -47,59 +39,79 @@ export type StateType = {
     dialogsPage: DialogsPageType
 }
 
-export let state =  {
-    profilePage: {
-        newPostText: '',
-        posts: [
-            {id: v1(), message: "Hi, how are you?", likesCount: 2},
-            {id: v1(), message: "It's my first post!", likesCount: 8},
-        ]
+export type StoreType = {
+    _state: StateType
+    _onChange: ()=>void
+    getState: () => StateType
+    subscribe: (callback: ()=>void)=>void
+    addPost: ()=>void
+    changeNewPostText: (newText: string)=> void
+    addMessage: ()=>void
+    changeNewMessageText: (newMessageText: string)=>void
+}
+
+export let store: StoreType = {
+    _state:  {
+        profilePage: {
+            newPostText: '',
+            posts: [
+                {id: v1(), message: "Hi, how are you?", likesCount: 2},
+                {id: v1(), message: "It's my first post!", likesCount: 8},
+            ]
+        },
+        dialogsPage: {
+            newMessage: '',
+            dialogs: [
+                {id: v1(), name: 'Vasya', ava:'https://vjoy.cc/wp-content/uploads/2019/12/4wx8ecia-min.jpg'},
+                {id: v1(), name: 'Kolya', ava:'https://meragor.com/files/styles//ava_800_800_wm/starnoff_23.jpg'},
+                {id: v1(), name: 'Pasha', ava:'https://freelance.ru/img/portfolio/pics/00/36/88/3573970.jpg'},
+                {id: v1(), name: 'Lesha', ava:'https://www.perunica.ru/uploads/posts/2019-03/1552932077_1.jpg'},
+                {id: v1(), name: 'Misha', ava:'https://static.wikia.nocookie.net/0c9787f8-4011-4dbe-9ca0-44fafba10dec/scale-to-width/755'}
+            ],
+            messages: [
+                {id: v1(), text: 'Hi'},
+                {id: v1(), text: 'How are you?'},
+                {id: v1(), text: 'OK'},
+                {id: v1(), text: 'OK'},
+            ]
+        },
+        /* sidebar: {
+             friends: [
+                 {id: v1(), name: 'Vasya', ava:'https://vjoy.cc/wp-content/uploads/2019/12/4wx8ecia-min.jpg'},
+                 {id: v1(), name: 'Kolya', ava:'https://meragor.com/files/styles//ava_800_800_wm/starnoff_23.jpg'},
+                 {id: v1(), name: 'Pasha', ava:'https://freelance.ru/img/portfolio/pics/00/36/88/3573970.jpg'},
+             ],
+         }*/
     },
-    dialogsPage: {
-        newMessage: '',
-        dialogs: [
-            {id: v1(), name: 'Vasya', ava:'https://vjoy.cc/wp-content/uploads/2019/12/4wx8ecia-min.jpg'},
-            {id: v1(), name: 'Kolya', ava:'https://meragor.com/files/styles//ava_800_800_wm/starnoff_23.jpg'},
-            {id: v1(), name: 'Pasha', ava:'https://freelance.ru/img/portfolio/pics/00/36/88/3573970.jpg'},
-            {id: v1(), name: 'Lesha', ava:'https://www.perunica.ru/uploads/posts/2019-03/1552932077_1.jpg'},
-            {id: v1(), name: 'Misha', ava:'https://static.wikia.nocookie.net/0c9787f8-4011-4dbe-9ca0-44fafba10dec/scale-to-width/755'}
-        ],
-        messages: [
-            {id: v1(), text: 'Hi'},
-            {id: v1(), text: 'How are you?'},
-            {id: v1(), text: 'OK'},
-            {id: v1(), text: 'OK'},
-        ]
+    _onChange () {
+        console.log("state changed")
     },
-   /* sidebar: {
-        friends: [
-            {id: v1(), name: 'Vasya', ava:'https://vjoy.cc/wp-content/uploads/2019/12/4wx8ecia-min.jpg'},
-            {id: v1(), name: 'Kolya', ava:'https://meragor.com/files/styles//ava_800_800_wm/starnoff_23.jpg'},
-            {id: v1(), name: 'Pasha', ava:'https://freelance.ru/img/portfolio/pics/00/36/88/3573970.jpg'},
-        ],
-    }*/
+    getState() {
+        return this._state
+    },
+    subscribe (callback) {
+        this._onChange = callback;
+    },
+    addPost () {
+        const newPost = {id: v1(), message: this._state.profilePage.newPostText, likesCount: 0};
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
+        this._onChange();
+    },
+    changeNewPostText (newText: string) {
+        this._state.profilePage.newPostText=newText;
+        this._onChange();
+    },
+    addMessage () {
+        const newMessage = {id: v1(), text: this._state.dialogsPage.newMessage};
+        this._state.dialogsPage.messages.push(newMessage);
+        this._state.dialogsPage.newMessage = '';
+        this._onChange();
+    },
+    changeNewMessageText (newMessageText: string){
+        this._state.dialogsPage.newMessage=newMessageText;
+        this._onChange();
+    }
 }
 
-export const addPost = () => {
-    const newPost = {id: v1(), message: state.profilePage.newPostText, likesCount: 0};
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = '';
-    onChange();
-}
 
-export const changeNewPostText =(newText: string)=>{
-    state.profilePage.newPostText=newText;
-    onChange();
-}
-
-export const addMessage = () => {
-    const newMessage = {id: v1(), text: state.dialogsPage.newMessage};
-    state.dialogsPage.messages.push(newMessage);
-    state.dialogsPage.newMessage = '';
-    onChange();
-}
-
-export const changeNewMessageText =(newMessageText: string)=>{
-    state.dialogsPage.newMessage=newMessageText;
-    onChange();
-}

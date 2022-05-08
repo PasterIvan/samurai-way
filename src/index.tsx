@@ -1,20 +1,20 @@
 import './index.css';
-import {addMessage, addPost, changeNewMessageText, changeNewPostText, state, StateType, subscribe} from "./redux/state";
+import {store, StateType} from "./redux/state";
 import ReactDOM from "react-dom";
 import App from "./App";
 import React from "react";
 
 let renderTree = () => {
-    ReactDOM.render(<App state={state}
-                         addPost={addPost}
-                         changeNewPostText={changeNewPostText}
-                         addMessage = {addMessage}
-                         changeNewMessageText={changeNewMessageText}
+    ReactDOM.render(<App state={store.getState()}
+                         addPost={store.addPost.bind(store)}
+                         changeNewPostText={store.changeNewPostText.bind(store)}
+                         addMessage = {store.addMessage.bind(store)}
+                         changeNewMessageText={store.changeNewMessageText.bind(store)}
         />,
         document.getElementById('root')
     );
 }
 
-subscribe(renderTree);
+store.subscribe(renderTree);
 
 renderTree();

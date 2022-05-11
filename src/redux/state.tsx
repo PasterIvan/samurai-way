@@ -47,25 +47,12 @@ export type StoreType = {
     dispatch: (action: ACType)=>void
 }
 
-type AddPostACType = {
-    type: 'ADD-POST'
-    newPostText: string
-}
-
-type ChangeNewPostTextACType = {
-    type: 'CHANGE-NEW-POST-TEXT'
-    newText: string
-}
-type AddMessageACType = {
-    type: 'ADD-MESSAGE'
-    newMessage: string
-}
-type ChangeNewMessageTextACType = {
+type changeNewMessageTextAC = {
     type: 'CHANGE-NEW-MESSAGE-TEXT'
     newMessageText: string
 }
 
-export type ACType = AddPostACType | ChangeNewPostTextACType | AddMessageACType | ChangeNewMessageTextACType
+export type ACType = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewPostTextAC>  | ReturnType<typeof addMessageAC> | ReturnType<typeof changeNewMessageTextAC>
 
 export let store: StoreType = {
     _state:  {
@@ -128,4 +115,32 @@ export let store: StoreType = {
             this._onChange();
         }
             }
+}
+
+export const addPostAC = (newPostText: string)=>{
+    return {
+        type: 'ADD-POST',
+        newPostText: newPostText
+    } as const
+}
+
+export const changeNewPostTextAC = (newText: string)=>{
+    return {
+        type: 'CHANGE-NEW-POST-TEXT',
+        newText: newText
+    } as const
+}
+
+export const addMessageAC = (newMessage: string)=>{
+    return {
+        type: 'ADD-MESSAGE',
+        newMessage: newMessage
+    } as const
+}
+
+export const changeNewMessageTextAC = (newMessageText: string)=>{
+    return {
+        type: 'CHANGE-NEW-MESSAGE-TEXT',
+        newMessageText: newMessageText
+    } as const
 }

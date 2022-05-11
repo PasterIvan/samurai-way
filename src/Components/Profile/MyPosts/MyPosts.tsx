@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import style from './MyPosts.module.css'
 import Post from "./MyPost/Post";
-import {ACType, PostsType} from '../../../redux/state';
+import {ACType, addPostAC, changeNewPostTextAC, PostsType} from '../../../redux/state';
 
 type MyPostsPropsType = {
     posts: Array<PostsType>
@@ -13,12 +13,12 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     const postsElement = props.posts.map(p=><Post message={p.message} likesCount={p.likesCount}/>)
 
-    const fnAddPost = () => {
-        props.dispatch({type:'ADD-POST', newPostText: props.newPostText})
+    const addPost = () => {
+        props.dispatch(addPostAC(props.newPostText))
     }
 
     const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: 'CHANGE-NEW-POST-TEXT', newText: e.currentTarget.value})
+        props.dispatch(changeNewPostTextAC(e.currentTarget.value))
     }
 
     return (
@@ -31,7 +31,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
                              />
                 </div>
                 <div>
-                    <button onClick={fnAddPost}>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
             </div>
             <div className={style.posts}>

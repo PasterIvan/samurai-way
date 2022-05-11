@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {addPostAC, changeNewPostTextAC, profileReducer} from "./profileReducer";
+import {addMessageAC, changeNewMessageTextAC, dialogsReducer} from "./dialogsReducer";
 
 export type PostsType = {
     id: string
@@ -45,11 +47,6 @@ export type StoreType = {
     getState: () => StateType
     subscribe: (callback: () => void) => void
     dispatch: (action: ACType) => void
-}
-
-type changeNewMessageTextAC = {
-    type: 'CHANGE-NEW-MESSAGE-TEXT'
-    newMessageText: string
 }
 
 export type ACType =
@@ -106,50 +103,9 @@ export let store: StoreType = {
         this._onChange = callback;
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            const newPost = {id: v1(), message: action.newPostText, likesCount: 0};
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._onChange();
-        } else if (action.type === 'CHANGE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._onChange();
-        } else if (action.type === 'ADD-MESSAGE') {
-            const newMessage = {id: v1(), text: action.newMessage};
-            this._state.dialogsPage.messages.push(newMessage);
-            this._state.dialogsPage.newMessage = '';
-            this._onChange();
-        } else if (action.type === 'CHANGE-NEW-MESSAGE-TEXT') {
-            this._state.dialogsPage.newMessage = action.newMessageText;
-            this._onChange();
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._onChange();
     }
 }
 
-export const addPostAC = (newPostText: string) => {
-    return {
-        type: 'ADD-POST',
-        newPostText: newPostText
-    } as const
-}
-
-export const changeNewPostTextAC = (newText: string) => {
-    return {
-        type: 'CHANGE-NEW-POST-TEXT',
-        newText: newText
-    } as const
-}
-
-export const addMessageAC = (newMessage: string) => {
-    return {
-        type: 'ADD-MESSAGE',
-        newMessage: newMessage
-    } as const
-}
-
-export const changeNewMessageTextAC = (newMessageText: string) => {
-    return {
-        type: 'CHANGE-NEW-MESSAGE-TEXT',
-        newMessageText: newMessageText
-    } as const
-}

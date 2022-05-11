@@ -19,7 +19,6 @@ export type AppPropsType = {
 const App: React.FC<AppPropsType> = (props) => {
 
     return (
-
             <div className={'app-wrapper'}>
                 <Header/>
                 <Navbar/>

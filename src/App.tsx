@@ -8,32 +8,27 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Music} from "./Components/Music/Music";
 import {News} from "./Components/News/News";
 import {Settings} from "./Components/Settings/Settings";
-import {StateType} from "./redux/state";
+import {ACType, StateType} from "./redux/state";
 import {Friends} from "./Components/Friends/Friends";
 
 export type AppPropsType = {
     state: StateType
-    addPost: () => void
-    changeNewPostText: (newText: string)=>void
-    addMessage: ()=>void
-    changeNewMessageText: (newMessageText: string)=>void
+    dispatch: (action:ACType)=>void
 }
 
 const App: React.FC<AppPropsType> = (props) => {
 
     return (
-        <BrowserRouter>
+
             <div className={'app-wrapper'}>
                 <Header/>
                 <Navbar/>
                 <div className={'app-wrapper-content'}>
                     <Routes>
                         <Route path='/profile' element={<Profile profilePage={props.state.profilePage}
-                                                                 addPost={props.addPost}
-                                                                 changeNewPostText={props.changeNewPostText}/>}/>
+                                                                 dispatch={props.dispatch}/>}/>
                         <Route path='/dialogs' element={<Dialogs dialogsPage={props.state.dialogsPage}
-                                                                 addMessage={props.addMessage}
-                                                                 changeNewMessageText={props.changeNewMessageText}/>}/>
+                                                                 dispatch={props.dispatch}/>}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/music' element={<Music/>}/>
                         <Route path='/settings' element={<Settings/>}/>
@@ -41,8 +36,6 @@ const App: React.FC<AppPropsType> = (props) => {
                     </Routes>
                 </div>
             </div>
-        </BrowserRouter>
-
     );
 }
 

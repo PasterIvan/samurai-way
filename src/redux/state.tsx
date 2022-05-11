@@ -44,11 +44,28 @@ export type StoreType = {
     _onChange: ()=>void
     getState: () => StateType
     subscribe: (callback: ()=>void)=>void
-    addPost: ()=>void
-    changeNewPostText: (newText: string)=> void
-    addMessage: ()=>void
-    changeNewMessageText: (newMessageText: string)=>void
+    dispatch: (action: ACType)=>void
 }
+
+type AddPostACType = {
+    type: 'ADD-POST'
+    newPostText: string
+}
+
+type ChangeNewPostTextACType = {
+    type: 'CHANGE-NEW-POST-TEXT'
+    newText: string
+}
+type AddMessageACType = {
+    type: 'ADD-MESSAGE'
+    newMessage: string
+}
+type ChangeNewMessageTextACType = {
+    type: 'CHANGE-NEW-MESSAGE-TEXT'
+    newMessageText: string
+}
+
+export type ACType = AddPostACType | ChangeNewPostTextACType | AddMessageACType | ChangeNewMessageTextACType
 
 export let store: StoreType = {
     _state:  {
@@ -92,26 +109,23 @@ export let store: StoreType = {
     subscribe (callback) {
         this._onChange = callback;
     },
-    addPost () {
-        const newPost = {id: v1(), message: this._state.profilePage.newPostText, likesCount: 0};
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._onChange();
-    },
-    changeNewPostText (newText: string) {
-        this._state.profilePage.newPostText=newText;
-        this._onChange();
-    },
-    addMessage () {
-        const newMessage = {id: v1(), text: this._state.dialogsPage.newMessage};
-        this._state.dialogsPage.messages.push(newMessage);
-        this._state.dialogsPage.newMessage = '';
-        this._onChange();
-    },
-    changeNewMessageText (newMessageText: string){
-        this._state.dialogsPage.newMessage=newMessageText;
-        this._onChange();
-    }
+    dispatch(action){
+        if (action.type === 'ADD-POST') {
+            const newPost = {id: v1(), message: action.newPostText, likesCount: 0};
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._onChange();
+        } else if (action.type === 'CHANGE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText=action.newText;
+            this._onChange();
+        } else if (action.type === 'ADD-MESSAGE') {
+            const newMessage = {id: v1(), text: action.newMessage};
+            this._state.dialogsPage.messages.push(newMessage);
+            this._state.dialogsPage.newMessage = '';
+            this._onChange();
+        } else if (action.type === 'CHANGE-NEW-MESSAGE-TEXT') {
+            this._state.dialogsPage.newMessage=action.newMessageText;
+            this._onChange();
+        }
+            }
 }
-
-

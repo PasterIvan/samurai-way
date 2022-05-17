@@ -108,4 +108,3 @@ export let store: StoreType = {
         this._onChange();
     }
 }
-

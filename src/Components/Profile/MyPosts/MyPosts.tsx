@@ -1,25 +1,17 @@
-import React, {ChangeEvent} from 'react';
+import React, { ChangeEvent } from 'react';
 import style from './MyPosts.module.css'
+import {mapDispatchToPropsType, mapStateToPropsType} from "./MyPostsContainer";
 import Post from "./MyPost/Post";
-import {ACType, PostsType} from '../../../redux/store';
-import {addPostAC, changeNewPostTextAC} from "../../../redux/profileReducer";
 
-type MyPostsPropsType = {
-    posts: Array<PostsType>
-    newPostText: string
-    dispatch: (action:ACType)=>void
-}
+type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+const MyPosts: React.FC<MyPostsPropsType> = ({posts, newPostText, addPost, updateNewPostText}) => {
 
-    const postsElement = props.posts.map(p=><Post message={p.message} likesCount={p.likesCount}/>)
+    const postsElement = posts.map(p=><Post message={p.message} likesCount={p.likesCount}/>)
 
-    const addPost = () => {
-        props.dispatch(addPostAC(props.newPostText))
-    }
-
-    const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(changeNewPostTextAC(e.currentTarget.value))
+    const onNewPostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let text = e.currentTarget.value
+        updateNewPostText(text)
     }
 
     return (
@@ -27,8 +19,8 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea value={props.newPostText}
-                              onChange={newTextChangeHandler}
+                    <textarea value={newPostText}
+                              onChange={onNewPostText}
                              />
                 </div>
                 <div>

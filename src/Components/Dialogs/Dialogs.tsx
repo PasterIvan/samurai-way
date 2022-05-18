@@ -2,26 +2,19 @@ import React, {ChangeEvent} from "react";
 import DialogItem from "./DialogItem/DialogItem";
 import style from './Dialogs.module.css'
 import Message from "./Message/Message";
-import {ACType, DialogsPageType} from "../../redux/store";
-import {addMessageAC, changeNewMessageTextAC} from "../../redux/dialogsReducer";
+import {mapDispatchToPropsType, mapStateToPropsType} from "./DialogsContainer";
 
-type DialogsPropsType = {
-    dialogsPage: DialogsPageType
-    dispatch: (action:ACType)=>void
-}
+type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-const Dialogs: React.FC <DialogsPropsType> = (props) => {
+const Dialogs: React.FC <DialogsPropsType> = ({dialogs, messages, newMessageBody, sendNewMessageBody, updateNewMessageBody}) => {
 
-    const dialogsElement = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} ava={d.ava}/>);
+    const dialogsElement = dialogs.map(d => <DialogItem name={d.name} id={d.id} ava={d.ava}/>);
 
-    const messageElement = props.dialogsPage.messages.map(m => <Message id={m.id} text={m.text} />)
+    const messageElement = messages.map(m => <Message id={m.id} message={m.message} />)
 
-    const fnAddMessage = ()=>{
-        props.dispatch(addMessageAC(props.dialogsPage.newMessage));
-    }
-
-    const newTextMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(changeNewMessageTextAC(e.currentTarget.value))
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let body = e.currentTarget.value
+        updateNewMessageBody(body)
     }
 
     return (
@@ -32,9 +25,9 @@ const Dialogs: React.FC <DialogsPropsType> = (props) => {
             <div className={style.messages}>
                 {messageElement}
                 <div>
-                    <textarea value={props.dialogsPage.newMessage}
-                    onChange={newTextMessageChangeHandler}/>
-                    <button onClick={fnAddMessage}>Push</button>
+                    <textarea value={newMessageBody}
+                    onChange={onNewMessageChange}/>
+                    <button onClick={sendNewMessageBody}>Push</button>
                 </div>
             </div>
         </div>

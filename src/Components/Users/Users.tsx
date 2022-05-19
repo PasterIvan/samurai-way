@@ -56,8 +56,8 @@ export const Users: React.FC<UsersPropsType> = ({users, follow, unfollow, setUse
             {
                 users.map(u => <div key={u.id}>
                     <span>
-                        <div>
-                            <img src={u.photoUrl} className={style.userPhoto}/>
+                        <div className={style.userPhoto}>
+                            <img src={u.photoUrl} />
                         </div>
                         <div>
                             {u.followed

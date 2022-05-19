@@ -8,7 +8,6 @@ export type PostType = {
     message: string
     likesCount: number
 }
-export type initialStateType = typeof initialState
 
 export type AddPostACType = {
     type: typeof ADD_POST
@@ -18,6 +17,8 @@ export type UpdateNewPostTextACType = {
     newText: string
 }
 export type ProfileReducerActionType = AddPostACType | UpdateNewPostTextACType
+
+export type initialStateType = typeof initialState
 
 let initialState = {
     posts: [

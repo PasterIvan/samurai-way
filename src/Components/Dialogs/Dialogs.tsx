@@ -6,7 +6,7 @@ import {mapDispatchToPropsType, mapStateToPropsType} from "./DialogsContainer";
 
 type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-const Dialogs: React.FC <DialogsPropsType> = ({dialogs, messages, newMessageBody, sendNewMessageBody, updateNewMessageBody}) => {
+export const Dialogs: React.FC <DialogsPropsType> = ({dialogs, messages, newMessageBody, sendNewMessageBody, updateNewMessageBody}) => {
 
     const dialogsElement = dialogs.map(d => <DialogItem name={d.name} id={d.id} ava={d.ava}/>);
 
@@ -33,4 +33,3 @@ const Dialogs: React.FC <DialogsPropsType> = ({dialogs, messages, newMessageBody
         </div>
     )
 }
-export default Dialogs;

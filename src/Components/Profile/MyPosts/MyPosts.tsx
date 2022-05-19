@@ -1,13 +1,14 @@
-import React, { ChangeEvent } from 'react';
-import style from './MyPosts.module.css'
-import {mapDispatchToPropsType, mapStateToPropsType} from "./MyPostsContainer";
-import Post from "./MyPost/Post";
+import {mapDispatchToPropsType, mapStateToPropsType} from "./MyPostsContainer"
+import {Post} from "./MyPost/Post";
+import {ChangeEvent} from "react";
+import style from "./MyPosts.module.css"
+
 
 type MyPostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-const MyPosts: React.FC<MyPostsPropsType> = ({posts, newPostText, addPost, updateNewPostText}) => {
+export const MyPosts: React.FC<MyPostsPropsType> = ({posts, newPostText, addPost, updateNewPostText}) => {
 
-    const postsElement = posts.map(p=><Post message={p.message} likesCount={p.likesCount}/>)
+    const postsElement = posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     const onNewPostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.currentTarget.value
@@ -15,22 +16,23 @@ const MyPosts: React.FC<MyPostsPropsType> = ({posts, newPostText, addPost, updat
     }
 
     return (
-        <div className={style.postsBlock}>
-            <h3>My posts</h3>
-            <div>
+        <>
+            <div className={style.postsBlock}>
+                <h3>My posts</h3>
                 <div>
+                    <div>
                     <textarea value={newPostText}
                               onChange={onNewPostText}
-                             />
+                    />
+                    </div>
+                    <div>
+                        <button onClick={addPost}>Add post</button>
+                    </div>
                 </div>
-                <div>
-                    <button onClick={addPost}>Add post</button>
+                <div className={style.posts}>
+                    {postsElement}
                 </div>
             </div>
-            <div className={style.posts}>
-                {postsElement}
-            </div>
-        </div>
+        </>
     )
 }
-export default MyPosts;

@@ -12,6 +12,7 @@ export type LocationType = {
 export type UsersType = {
     id: string
     followed: boolean
+    photoUrl: string
     fullName: string
     status: string
     location: LocationType
@@ -37,31 +38,7 @@ export type setUsersACType = {
 export type UsersReducerActionType = FollowACType | UnfollowACType | setUsersACType
 
 let initialState = {
-    users: [
-        // {id: v1(), followed: true, fullName: 'Vasya', status: 'sdfsfsf', location: {city: 'Minsk', country: 'Belarus'}},
-        // {
-        //     id: v1(),
-        //     followed: false,
-        //     fullName: 'Kolya',
-        //     status: 'vervrverv',
-        //     location: {city: 'Brest', country: 'Belarus'}
-        // },
-        // {id: v1(), followed: true, fullName: 'Pasha', status: 'erverv', location: {city: 'Kiev', country: 'Ukraine'}},
-        // {
-        //     id: v1(),
-        //     followed: false,
-        //     fullName: 'Lesha',
-        //     status: 'sdfseghyu,fsf',
-        //     location: {city: 'New York', country: 'USA'}
-        // },
-        // {
-        //     id: v1(),
-        //     followed: false,
-        //     fullName: 'Misha',
-        //     status: 'sdf,umynybvtsfsf',
-        //     location: {city: 'Minsk', country: 'Belarus'}
-        // },
-    ] as Array<UsersType>,
+    users: [] as Array<UsersType>,
 
 }
 
@@ -70,8 +47,8 @@ export const usersReducer = (state: initialStateType = initialState, action: Use
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map(u=>{
-                    if (u.id === action.userID){
+                users: state.users.map(u => {
+                    if (u.id === action.userID) {
                         return {...u, followed: true}
                     }
                     return u
@@ -80,8 +57,8 @@ export const usersReducer = (state: initialStateType = initialState, action: Use
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(u=>{
-                    if (u.id === action.userID){
+                users: state.users.map(u => {
+                    if (u.id === action.userID) {
                         return {...u, followed: false}
                     }
                     return u

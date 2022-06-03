@@ -1,32 +1,58 @@
 import React from "react";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./UsersContainer";
 import style from "./Users.module.css"
-import {v1} from "uuid";
-import axios from "axios";
+import {UserType} from "../../redux/usersReducer";
 
+export type UsersPropsType = {
+    onPageChanged: (pageNumber: number) => void
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    users: Array<UserType>
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+}
 
-type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
+export const Users: React.FC<UsersPropsType> = (
+    {
+        users, follow, unfollow, totalUsersCount, pageSize, currentPage, onPageChanged
+    }
+) => {
 
-export const Users: React.FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) => {
+    let pagesCount = Math.ceil(totalUsersCount / pageSize)
 
-    if (users.length === 0 ) {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response=> {
-            setUsers(response.data.items)
-        })
+    let pages = []
+    for (let i = 1; i < pagesCount; i++) {
+        pages.push(i)
     }
 
-    return (
-        <div>
-            {
-                users.map(u => <div key={u.id}>
+    return (<div>
+            <div>
+                {pages.map(p => {
+                    return <span
+                        className={currentPage === p ? style.selectedPage : ''}
+                        onClick={() => {
+                            onPageChanged(p)
+                        }}>
+                            {p}
+                        </span>
+                })}
+
+            </div>
+            <div>
+                {users.map(u => <div key={u.id}>
                     <span>
                         <div className={style.userPhoto}>
-                            <img src={u.photos.small !== null ? u.photos.small : ""} />
+                            <img src={u.photos.small !== null ? u.photos.small : ""}/>
                         </div>
                         <div>
                             {u.followed
-                                ? <button onClick={()=>{unfollow(u.id)}}>Unfollow</button>
-                                : <button onClick={()=>{follow(u.id)}}>Follow</button>}
+                                ? <button onClick={() => {
+                                    unfollow(u.id)
+                                }}>Unfollow</button>
+                                : <button onClick={() => {
+                                    follow(u.id)
+                                }}>Follow</button>}
 
                         </div>
                     </span>
@@ -46,7 +72,8 @@ export const Users: React.FC<UsersPropsType> = ({users, follow, unfollow, setUse
                     </span>
 
                 </div>)
-            }
+                }
+            </div>
         </div>
     )
 }

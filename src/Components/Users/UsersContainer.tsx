@@ -6,13 +6,13 @@ import {
     followAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    setUsersAC, toggleIsFetchingAC,
+    setUsersAC,
+    toggleIsFetchingAC,
     unfollowAC,
     UserType
 } from '../../redux/usersReducer';
 import axios from 'axios';
 import {Users} from "./Users";
-import loading from './../../assets/images/loading.gif'
 import {Preloader} from "../common/preloader/Preloader";
 
 export type mapStateToPropsType = ReturnType<typeof mapStateToProps>
@@ -98,4 +98,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
 }
 
 export default connect<mapStateToPropsType,mapDispatchToPropsType,{},StoreType>
-(mapStateToProps,mapDispatchToProps )(UsersContainer)
+(mapStateToProps,mapDispatchToProps)(UsersContainer)

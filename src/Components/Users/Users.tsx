@@ -2,6 +2,8 @@ import React from "react";
 import {mapDispatchToPropsType, mapStateToPropsType} from "./UsersContainer";
 import style from "./Users.module.css"
 import {UserType} from "../../redux/usersReducer";
+import avatar from './../../assets/images/avatar.png'
+
 
 export type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
@@ -43,7 +45,7 @@ export const Users: React.FC<UsersPropsType> = (
                 {users.map(u => <div key={u.id}>
                     <span>
                         <div className={style.userPhoto}>
-                            <img src={u.photos.small !== null ? u.photos.small : ""}/>
+                            <img src={u.photos.small !== null ? u.photos.small : avatar}/>
                         </div>
                         <div>
                             {u.followed

@@ -2,6 +2,7 @@ import {v1} from 'uuid';
 
 export const ADD_POST = 'ADD_POST';
 export const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 export type PostType = {
     id: string
@@ -9,14 +10,11 @@ export type PostType = {
     likesCount: number
 }
 
-export type AddPostACType = {
-    type: typeof ADD_POST
-}
-export type UpdateNewPostTextACType = {
-    type: typeof UPDATE_NEW_POST_TEXT,
-    newText: string
-}
-export type ProfileReducerActionType = AddPostACType | UpdateNewPostTextACType
+export type AddPostACType = ReturnType<typeof addPost>
+export type UpdateNewPostTextACType = ReturnType<typeof updateNewPostText>
+export type setUserProfileACType = ReturnType<typeof setUserProfile>
+
+export type ProfileReducerActionType = AddPostACType | UpdateNewPostTextACType | setUserProfileACType
 
 export type initialStateType = typeof initialState
 
@@ -25,7 +23,8 @@ let initialState = {
         {id: v1(), message: 'Its my first post', likesCount: 32},
         {id: v1(), message: 'Its my second post', likesCount: 54}
     ] as Array<PostType>,
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
 
 export const profileReducer = (state: initialStateType = initialState, action: ProfileReducerActionType): initialStateType => {
@@ -42,10 +41,15 @@ export const profileReducer = (state: initialStateType = initialState, action: P
                 ...state,
                 newPostText: action.newText
             }
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
+            }
         default:
             return state
     }
 }
-export const addPostAC = (): AddPostACType => ({type: ADD_POST})
-export const updateNewPostTextAC = (text: string): UpdateNewPostTextACType =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export const addPost = () => ({type: ADD_POST} as const)
+export const updateNewPostText = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
+export const setUserProfile = (profile: null) => ({type: SET_USER_PROFILE, profile} as const)

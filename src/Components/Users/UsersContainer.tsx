@@ -74,7 +74,6 @@ const mapStateToProps = (state: StoreType) => {
     }
 }
 
-
 export const UsersContainer =  connect(mapStateToProps,{
     follow, unfollow, setUsers, setCurrentPage,
     setTotalUsersCount, toggleIsFetching})(UsersRequestContainer)

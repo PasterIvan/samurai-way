@@ -22,7 +22,6 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile}) => {
             <img src={profile.photos.large}/>
             ava + desctiption
         </div>
-
     </div>
 }
 export default ProfileInfo;

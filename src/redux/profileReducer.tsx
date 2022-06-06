@@ -10,6 +10,27 @@ export type PostType = {
     likesCount: number
 }
 
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: {
+        small: string
+        large: string
+    }
+}
+
 export type AddPostACType = ReturnType<typeof addPost>
 export type UpdateNewPostTextACType = ReturnType<typeof updateNewPostText>
 export type setUserProfileACType = ReturnType<typeof setUserProfile>
@@ -24,7 +45,26 @@ let initialState = {
         {id: v1(), message: 'Its my second post', likesCount: 54}
     ] as Array<PostType>,
     newPostText: '',
-    profile: null
+    profile: {
+        userId: NaN,
+        lookingForAJob: false,
+        lookingForAJobDescription: '',
+        fullName: '',
+        contacts: {
+            github: '',
+            vk: '',
+            facebook: '',
+            instagram: '',
+            twitter: '',
+            website: '',
+            youtube: '',
+            mainLink: '',
+        },
+        photos: {
+            small: '',
+            large: ''
+        }
+    }
 }
 
 export const profileReducer = (state: initialStateType = initialState, action: ProfileReducerActionType): initialStateType => {
@@ -52,4 +92,4 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 }
 export const addPost = () => ({type: ADD_POST} as const)
 export const updateNewPostText = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
-export const setUserProfile = (profile: null) => ({type: SET_USER_PROFILE, profile} as const)
+export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)

@@ -3,7 +3,7 @@ import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import {StoreType} from "../../redux/ReduxStore";
-import {ProfileType, setUserProfile} from "../../redux/profileReducer";
+import {addPost, ProfileType, setUserProfile, updateNewPostText} from "../../redux/profileReducer";
 import {Params} from 'react-router-dom';
 
 
@@ -33,7 +33,12 @@ class ProfileContainer extends React.Component<ProfileRequestContainerType> {
     render() {
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile}/>
+                <Profile {...this.props}
+                         profile={this.props.profile}
+                         updateNewPostText={this.props.updateNewPostText}
+                         addPost={this.props.addPost}
+                         newPostText={this.props.newPostText}
+                         posts={this.props.posts}/>
             </div>
         )
     }
@@ -41,8 +46,10 @@ class ProfileContainer extends React.Component<ProfileRequestContainerType> {
 
 const mapStateToProps = (state: StoreType) => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        posts: state.profilePage.posts,
+        newPostText: state.profilePage.newPostText
     }
 }
 
-export default connect(mapStateToProps, {setUserProfile})(ProfileContainer)
+export default connect(mapStateToProps, {setUserProfile, addPost, updateNewPostText})(ProfileContainer)

@@ -1,7 +1,7 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {PostType, ProfileType} from "../../redux/profileReducer";
+import {MyPosts} from "./MyPosts/MyPosts";
 
 type ProfilePropsType = {
     profile: ProfileType
@@ -15,7 +15,7 @@ export const Profile: React.FC<ProfilePropsType> = ({profile, posts, newPostText
     return (
         <div>
             <ProfileInfo profile={profile}/>
-            <MyPostsContainer />
+            <MyPosts posts={posts} addPost={addPost} newPostText={newPostText} updateNewPostText={updateNewPostText}/>
         </div>
     )
 }

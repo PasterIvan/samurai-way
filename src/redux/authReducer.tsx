@@ -6,9 +6,9 @@ export type setAuthUserDataAT = ReturnType<typeof setAuthUserData>
 export type AuthReducerActionType = setAuthUserDataAT
 
 let initialState = {
-    userId: null,
-    email: null,
-    login: null,
+    userId: '1',
+    email: 'sc',
+    login: 'asx',
     isAuth: false,
 }
 

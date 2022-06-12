@@ -2,11 +2,16 @@
     grid-area: h;
     background-color: Black;
     padding: 5px;
-
 }
 .header img {
     height: 100%;
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+.loginBlock {
+    /*float: right;*/
+}
+.loginBlock a{
+    color: aliceblue;
 }

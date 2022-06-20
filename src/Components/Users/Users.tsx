@@ -4,6 +4,7 @@ import {UserType} from "../../redux/usersReducer";
 import avatar from './../../assets/images/avatar.png'
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {userAPI} from "../../api/api";
 
 
 export type UsersPropsType = {
@@ -53,25 +54,17 @@ export const Users: React.FC<UsersPropsType> = (
                         <div>
                             {u.followed
                                 ? <button onClick={() => {
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                        {
-                                            withCredentials: true,
-                                            headers: {'API-KEY':'8eae8561-af9d-4770-a309-d90c99aab1ce'}
-                                        })
-                                        .then(response => {
-                                            if (response.data.resultCode == 0) {
+                                    userAPI.unfollow(u.id)
+                                        .then(data => {
+                                            if (data.resultCode == 0) {
                                                 unfollow(u.id)
                                             }
                                         })
                                 }}>Unfollow</button>
                                 : <button onClick={() => {
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
-                                        {
-                                            withCredentials: true,
-                                            headers: {'API-KEY':'8eae8561-af9d-4770-a309-d90c99aab1ce'}
-                                        })
-                                        .then(response => {
-                                            if (response.data.resultCode == 0) {
+                                    userAPI.follow(u.id)
+                                        .then(data => {
+                                            if (data.resultCode == 0) {
                                                 follow(u.id)
                                             }
                                         })

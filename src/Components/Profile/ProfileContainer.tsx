@@ -1,10 +1,10 @@
 import React from 'react';
 import {Profile} from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {StoreType} from "../../redux/ReduxStore";
 import {addPost, ProfileType, setUserProfile, updateNewPostText} from "../../redux/profileReducer";
 import {Params, useParams} from 'react-router-dom';
+import {userAPI} from "../../api/api";
 
 export type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 export type mapDispatchToPropsType = {
@@ -23,10 +23,9 @@ class ProfileRequestContainer extends React.Component<ProfileRequestContainerTyp
 
     componentDidMount() {
         const {userId} = this.props.params;
-        axios.get(
-            `https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.setUserProfile(response.data)
+        userAPI.getUserProfile(userId)
+            .then(data => {
+                this.props.setUserProfile(data)
             })
     }
 

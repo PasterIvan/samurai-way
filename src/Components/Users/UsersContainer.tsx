@@ -5,7 +5,8 @@ import {
     follow,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleFollowingProgress,
+    setUsers,
+    toggleFollowingProgress,
     toggleIsFetching,
     unfollow,
     UserType

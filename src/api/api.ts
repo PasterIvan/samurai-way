@@ -14,18 +14,15 @@ export const userAPI = {
     getUserProfile(userId: number) {
         return instance.get(
             `profile/` + userId)
-            .then(response => response.data
-            )
+            .then(response => response.data)
     },
     unfollow(id: number){
         return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`)
-            .then(response => response.data
-            )
+            .then(response => response.data)
     },
     follow(id: number){
         return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`)
-            .then(response => response.data
-            )
+            .then(response => response.data)
     }
 
 }

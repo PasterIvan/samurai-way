@@ -5,16 +5,13 @@
 }
 .header img {
     height: 100%;
-    display: block;
+
     margin-left: auto;
     margin-right: auto;
 }
 .loginBlock {
-    /*float: right;*/
+    float: right;
 }
-.loginBlock a{
-    color: gold;
-}
-.loginBlock div{
+.item {
     color: gold;
 }

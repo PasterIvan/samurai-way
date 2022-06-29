@@ -1,4 +1,6 @@
 import {v1} from 'uuid';
+import {userAPI} from "../api/api";
+import {AppThunkType} from "./ReduxStore";
 
 export const ADD_POST = 'ADD_POST';
 export const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
@@ -90,6 +92,17 @@ export const profileReducer = (state: initialStateType = initialState, action: P
             return state
     }
 }
+
 export const addPost = () => ({type: ADD_POST} as const)
 export const updateNewPostText = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
+
+export const getUserProfile = (userId: number): AppThunkType => {
+    return (dispatch) => {
+
+        userAPI.getUserProfile(userId)
+            .then(data => {
+                dispatch(setUserProfile(data))
+            })
+    }
+}

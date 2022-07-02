@@ -2,8 +2,10 @@ import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {StoreType} from "../../redux/ReduxStore";
-import {addPost, getUserProfile, setUserProfile, updateNewPostText} from "../../redux/profileReducer";
+import {addPost, getUserProfile, updateNewPostText} from "../../redux/profileReducer";
 import {Params, useParams} from 'react-router-dom';
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {Dialogs} from "../Dialogs/Dialogs";
 
 export type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 export type mapDispatchToPropsType = {
@@ -51,6 +53,8 @@ let WithUrlDataContainerComponent = (props: WithUrlDataContainerComponentType) =
     return <ProfileRequestContainer  {...props} params={useParams()}/>
 }
 
+let AuthRedirectComponent = withAuthRedirect(WithUrlDataContainerComponent)
+
 export const ProfileContainer = connect(mapStateToProps, {
     addPost, updateNewPostText, getUserProfile
-})(WithUrlDataContainerComponent)
+})(AuthRedirectComponent)

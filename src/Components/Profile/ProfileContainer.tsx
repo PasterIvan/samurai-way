@@ -56,5 +56,4 @@ let WithUrlDataContainerComponent = (props: WithUrlDataContainerComponentType) =
 export const ProfileContainer = compose<React.ComponentType>(
     connect(mapStateToProps, {addPost, updateNewPostText, getUserProfile}),
     WithUrlDataContainerComponent,
-    withAuthRedirect
 )(ProfileRequestContainer)

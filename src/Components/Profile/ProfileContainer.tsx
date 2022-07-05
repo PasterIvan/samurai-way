@@ -5,7 +5,7 @@ import {StoreType} from "../../redux/ReduxStore";
 import {addPost, getUserProfile, updateNewPostText} from "../../redux/profileReducer";
 import {Params, useParams} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {Dialogs} from "../Dialogs/Dialogs";
+import {compose} from "redux";
 
 export type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 export type mapDispatchToPropsType = {
@@ -53,8 +53,8 @@ let WithUrlDataContainerComponent = (props: WithUrlDataContainerComponentType) =
     return <ProfileRequestContainer  {...props} params={useParams()}/>
 }
 
-let AuthRedirectComponent = withAuthRedirect(WithUrlDataContainerComponent)
-
-export const ProfileContainer = connect(mapStateToProps, {
-    addPost, updateNewPostText, getUserProfile
-})(AuthRedirectComponent)
+export const ProfileContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, {addPost, updateNewPostText, getUserProfile}),
+    WithUrlDataContainerComponent,
+    withAuthRedirect
+)(ProfileRequestContainer)

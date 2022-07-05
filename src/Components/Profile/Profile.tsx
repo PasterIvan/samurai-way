@@ -1,9 +1,9 @@
 import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {getUserProfile, PostType, ProfileType} from "../../redux/profileReducer";
+import {getStatus, getUserProfile} from "../../redux/profileReducer";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {useAppDispatch} from "../../hooks/hooks";
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export const ProfileForRedirect  = () => {

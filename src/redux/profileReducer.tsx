@@ -109,7 +109,7 @@ export const getUserProfile = (userId: number): AppThunkType => async dispatch =
     const res = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(res.data))
 }
-export const setStatus = (userId: number): AppThunkType => async dispatch => {
+export const getStatus = (userId: number): AppThunkType => async dispatch => {
     const res = await profileAPI.getStatus(userId)
     dispatch(setStatusAC(res.data))
 }

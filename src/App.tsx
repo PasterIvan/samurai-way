@@ -7,11 +7,10 @@ import {News} from "./Components/News/News";
 import {Settings} from "./Components/Settings/Settings";
 import {Friends} from "./Components/Friends/Friends";
 import {UsersContainer} from './Components/Users/UsersContainer';
-import {ProfileContainer} from "./Components/Profile/ProfileContainer";
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
 import {Login} from "./Components/Login/Login";
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
-import { Profile } from './Components/Profile/Profile';
+import {Profile} from './Components/Profile/Profile';
 import {useAppSelector} from "./hooks/hooks";
 
 

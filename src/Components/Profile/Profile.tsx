@@ -1,21 +1,27 @@
 import React from 'react';
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {PostType, ProfileType} from "../../redux/profileReducer";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {getUserProfile, PostType, ProfileType} from "../../redux/profileReducer";
 import {MyPosts} from "./MyPosts/MyPosts";
+import {useAppDispatch} from "../../hooks/hooks";
+import { useParams } from 'react-router-dom';
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
-type ProfilePropsType = {
-    profile: ProfileType
-    posts: Array<PostType>
-    newPostText: string
-    addPost: () => void
-    updateNewPostText: (text: string) => void
-}
+export const ProfileForRedirect  = () => {
 
-export const Profile: React.FC<ProfilePropsType> = ({profile, posts, newPostText, addPost, updateNewPostText}) => {
+    const dispatch = useAppDispatch()
+    const params = useParams()
+
+    let {userId} = params
+    userId && dispatch(getUserProfile(+userId))
+    userId && dispatch(getStatus(+userId))
+
     return (
         <div>
-            <ProfileInfo profile={profile}/>
-            <MyPosts posts={posts} addPost={addPost} newPostText={newPostText} updateNewPostText={updateNewPostText}/>
+            <ProfileInfo />
+            <MyPosts />
         </div>
     )
 }
+export const Profile = withAuthRedirect(ProfileForRedirect)
+
+

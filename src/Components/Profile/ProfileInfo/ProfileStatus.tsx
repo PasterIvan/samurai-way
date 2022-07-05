@@ -1,23 +1,47 @@
 import React, {useState} from 'react'
+import {useAppDispatch, useAppSelector} from '../../../hooks/hooks'
+import { updateStatus } from '../../../redux/profileReducer'
+import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 
-export const ProfileStatus = (props: any) => {
+type FormDataType = {
+    status: string,
+}
 
+export const ProfileStatus = () => {
+    const dispatch = useAppDispatch()
+    const status = useAppSelector(state => state.profilePage.status)
     const [editMode, setEditMode] = useState<boolean>(false)
 
     const activateEditMode = () => {
         setEditMode(true)
+    }
+    const deactivateEditMode = (formData: FormDataType) => {
+        dispatch(updateStatus(formData.status))
+        setEditMode(false)
     }
 
     return (
         <div>
             {editMode
                 ? <div>
-                    <span onDoubleClick={activateEditMode}>{props.status}</span>
+                    <span onDoubleClick={activateEditMode}>{status}</span>
                 </div>
-                : <div>
-                    <input value={props.status}></input>
-                </div>
+                :  <StatusReduxForm onSubmit={deactivateEditMode}/>
             }
         </div>
     )
 }
+
+const StatusForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
+    return (
+        <form onSubmit={handleSubmit}>
+            <div>
+                <Field name={'status'}
+                       props={{autoFocus: true}}
+                />
+            </div>
+        </form>
+    )
+}
+
+const StatusReduxForm = reduxForm<FormDataType>({form: 'status'})(StatusForm)

@@ -2,6 +2,7 @@ import React from 'react';
 import {useAppSelector} from "../../../hooks/hooks";
 import {Preloader} from "../../common/preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
+import avatar from "../../../assets/images/avatar.png";
 
 export const Description = () => {
     const profile = useAppSelector(state => state.profilePage.profile)
@@ -12,7 +13,7 @@ export const Description = () => {
 
     return (
         <div>
-            <img src={profile.photos.large} alt="avatar"/>
+            <img src={profile.photos.small !== null ? profile.photos.small : avatar} alt="avatar"/>
 
             <ProfileStatus/>
 

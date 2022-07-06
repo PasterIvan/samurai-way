@@ -10,7 +10,7 @@ export const SET_STATUS = 'SET_STATUS';
 export type PostType = {
     id: string
     message: string
-    likesCount: number
+    likes: number
 }
 
 export type ProfileType = {
@@ -35,35 +35,33 @@ export type ProfileType = {
 }
 
 export type AddPostACType = ReturnType<typeof addPost>
-export type UpdateNewPostTextACType = ReturnType<typeof updateNewPostText>
 export type setUserProfileACType = ReturnType<typeof setUserProfile>
 export type setStatusACType = ReturnType<typeof setStatusAC>
 
-export type ProfileReducerActionType = AddPostACType | UpdateNewPostTextACType | setUserProfileACType | setStatusACType
+export type ProfileReducerActionType = AddPostACType | setUserProfileACType | setStatusACType
 
 export type initialStateType = typeof initialState
 
 let initialState = {
     posts: [
-        {id: v1(), message: 'Its my first post', likesCount: 32},
-        {id: v1(), message: 'Its my second post', likesCount: 54}
+        {id: v1(), message: 'Its my first post', likes: 32},
+        {id: v1(), message: 'Its my second post', likes: 54}
     ] as Array<PostType>,
-    newPostText: '',
     profile: {
-        userId: NaN,
+        contacts: {
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: ''
+        },
         lookingForAJob: false,
         lookingForAJobDescription: '',
         fullName: '',
-        contacts: {
-            github: '',
-            vk: '',
-            facebook: '',
-            instagram: '',
-            twitter: '',
-            website: '',
-            youtube: '',
-            mainLink: '',
-        },
+        userId: NaN,
         photos: {
             small: '',
             large: ''
@@ -75,16 +73,10 @@ let initialState = {
 export const profileReducer = (state: initialStateType = initialState, action: ProfileReducerActionType): initialStateType => {
     switch (action.type) {
         case ADD_POST:
-            let newPost = {id: v1(), message: state.newPostText, likesCount: 0}
+            let newPost = {id: v1(), message: action.newPostText, likes: 0}
             return {
                 ...state,
                 posts: [newPost, ...state.posts],
-                newPostText: ''
-            }
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
             }
         case SET_USER_PROFILE:
             return {
@@ -99,8 +91,7 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 }
 
 //AC
-export const addPost = () => ({type: ADD_POST} as const)
-export const updateNewPostText = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
+export const addPost = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 export const setStatusAC = (status: string) => ({type: SET_STATUS, status} as const)
 

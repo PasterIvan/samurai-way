@@ -1,34 +1,38 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import style from './Navbar.module.css'
+import {useAppSelector} from "../../hooks/hooks";
+
+type ActionType = {
+    [key: string]: boolean
+}
 
 const Navbar = () => {
+    const authUserId = useAppSelector(state => state.auth.id)
+
+    const setAction = ({isActive}: ActionType) => isActive ? style.active : style.item
     return (
         <nav className={style.nav}>
             <div className={style.item}>
-                <NavLink to='/profile'  className={({ isActive }) =>(isActive ? `${style.active}` : "")}>Profile</NavLink>
+                <NavLink to={'/profile/'+authUserId}  className={setAction}>Profile</NavLink>
             </div>
             <div className={`${style.item} ${style.active}`}>
-                <NavLink to='/dialogs'  className={({ isActive }) =>(isActive ? `${style.active}` : "")}>Messages</NavLink>
+                <NavLink to='/dialogs'  className={setAction}>Messages</NavLink>
             </div>
             <div className={`${style.item} ${style.active}`}>
-                <NavLink to='/users'  className={({ isActive }) =>(isActive ? `${style.active}` : "")}>Users</NavLink>
+                <NavLink to='/users'  className={setAction}>Users</NavLink>
             </div>
             <div className={`${style.item} ${style.active}`}>
-                <NavLink to='/news'  className={({ isActive }) =>(isActive ? `${style.active}` : "")}>News</NavLink>
+                <NavLink to='/news'  className={setAction}>News</NavLink>
             </div>
             <div className={style.item}>
-                <NavLink to='/music'  className={({ isActive }) =>(isActive ? `${style.active}` : "")}>Music</NavLink>
+                <NavLink to='/music'  className={setAction}>Music</NavLink>
             </div>
             <div className={style.item}>
-                <NavLink to='/settings' className={({ isActive }) =>(isActive ? `${style.active}` : "")}>Settings</NavLink>
+                <NavLink to='/settings' className={setAction}>Settings</NavLink>
             </div>
             <div className={style.item}>
-                <NavLink to='/friends' className={({ isActive }) =>(isActive ? `${style.active}` : "")}>Friends
-                <div>
-
-                </div>
-                </NavLink>
+                <NavLink to='/friends' className={setAction}>Friends</NavLink>
             </div>
         </nav>
     )

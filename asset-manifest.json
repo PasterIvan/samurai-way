@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.49114b74.css",
+    "main.js": "/static/js/main.0899ea9c.js",
+    "static/media/loading.gif": "/static/media/loading.6bd28abfc94dac87c753.gif",
+    "static/media/logoPasternak.jpg": "/static/media/logoPasternak.9ee3185a1423050a5da2.jpg",
+    "index.html": "/index.html",
+    "main.49114b74.css.map": "/static/css/main.49114b74.css.map",
+    "main.0899ea9c.js.map": "/static/js/main.0899ea9c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.49114b74.css",
+    "static/js/main.0899ea9c.js"
+  ]
+}

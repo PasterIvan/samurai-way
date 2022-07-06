@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks'
-import { updateStatus } from '../../../redux/profileReducer'
+import {updateStatus} from '../../../redux/profileReducer'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 import {maxLength300, required} from "../../../utils/validators/validators";
-import {Input, Textarea} from "../../common/formsControls/FormsControls";
+import {Input} from "../../common/formsControls/FormsControls";
 
 type FormDataType = {
     status: string,
@@ -24,11 +24,12 @@ export const ProfileStatus = () => {
 
     return (
         <div>
-            {editMode
-                ? <div>
-                    <span onDoubleClick={activateEditMode}>{status}</span>
-                </div>
-                :  <StatusReduxForm onSubmit={deactivateEditMode}/>
+            {!editMode &&
+                 <div>
+                    <span onDoubleClick={activateEditMode}>{status || 'No Status'}</span>
+                </div>}
+            {editMode &&
+                  <StatusReduxForm onSubmit={deactivateEditMode}/>
             }
         </div>
     )

@@ -9,9 +9,9 @@ import {Friends} from "./Components/Friends/Friends";
 import {UsersContainer} from './Components/Users/UsersContainer';
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
 import {Login} from "./Components/Login/Login";
-import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import {Profile} from './Components/Profile/Profile';
 import {useAppSelector} from "./hooks/hooks";
+import {Dialogs} from "./Components/Dialogs/Dialogs";
 
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
                 <Routes>
                     <Route path={'/'} element={<Navigate to={"/profile/" + authUserId}/>}/>
                     <Route path="/profile/:userId" element={<Profile/>}/>
-                    <Route path='/dialogs' element={<DialogsContainer/>}/>
+                    <Route path='/dialogs' element={<Dialogs/>}/>
                     <Route path='/users' element={<UsersContainer/>}/>
                     <Route path='/news' element={<News/>}/>
                     <Route path='/music' element={<Music/>}/>

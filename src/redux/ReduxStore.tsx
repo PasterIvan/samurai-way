@@ -1,13 +1,13 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
 import {profileReducer, ProfileReducerActionType} from './profileReducer';
-import {dialogsReducer, DialogsReducerActionType} from './dialogsReducer';
+import {dialogsReducer, DialogsReducerAT} from './dialogsReducer';
 import {usersReducer, UsersReducerActionType} from './usersReducer';
 import {authReducer, AuthReducerActionType} from "./authReducer";
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {FormAction, reducer as formReducer} from "redux-form";
 
 export type AppActionsType = UsersReducerActionType | ProfileReducerActionType
-    | DialogsReducerActionType | AuthReducerActionType | FormAction
+    | DialogsReducerAT | AuthReducerActionType | FormAction
 
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, StoreType, unknown, AppActionsType>
 

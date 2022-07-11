@@ -6,6 +6,7 @@ import {addPost} from "../../../../redux/profileReducer";
 
 export const NewPost = () => {
     const dispatch = useAppDispatch()
+
     const addNewPost = (formData: FormDataType) => {
         dispatch(addPost(formData.newPostText))
         dispatch(reset('profileAddNewPostFormRedux'))

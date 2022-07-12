@@ -8,3 +8,4 @@ export const maxLengthCreator = (maxLength: number) => (value: any) => {
     return undefined
 }
 export const maxLength300 = maxLengthCreator(300)
+export const maxLength100 = maxLengthCreator(100)

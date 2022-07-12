@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks'
 import {updateStatus} from '../../../redux/profileReducer'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
-import {maxLength300, required} from "../../../utils/validators/validators";
+import {maxLength100, required} from "../../../utils/validators/validators";
 import {Input} from "../../common/formsControls/FormsControls";
 
 type FormDataType = {
@@ -42,7 +42,7 @@ const StatusForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) =
                 <Field name={'status'}
                        component={Input}
                        props={{autoFocus: true}}
-                       validate={[required, maxLength300]}
+                       validate={[required, maxLength100]}
                 />
             </div>
         </form>

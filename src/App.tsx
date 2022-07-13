@@ -7,11 +7,11 @@ import {News} from "./Components/News/News";
 import {Settings} from "./Components/Settings/Settings";
 import {Friends} from "./Components/Friends/Friends";
 import {UsersContainer} from './Components/Users/UsersContainer';
-import {HeaderContainer} from "./Components/Header/HeaderContainer";
 import {Login} from "./Components/Login/Login";
 import {Profile} from './Components/Profile/Profile';
 import {useAppSelector} from "./hooks/hooks";
 import {Dialogs} from "./Components/Dialogs/Dialogs";
+import {Header} from "./Components/Header/Header";
 
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
 
     return (
         <div className={'app-wrapper'}>
-            <HeaderContainer/>
+            <Header/>
             <Navbar/>
             <div className={'app-wrapper-content'}>
                 <Routes>

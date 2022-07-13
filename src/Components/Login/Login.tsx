@@ -56,7 +56,6 @@ export const Login = () => {
 
     return (
         <>
-            <textarea></textarea>
             {isAuth ? <Navigate to="/"/>
                 : <>
                     <h1>LOGIN</h1>
